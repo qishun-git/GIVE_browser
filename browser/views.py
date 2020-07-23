@@ -39,7 +39,7 @@ def browser(request):
                 adder.add(file_type, track_name, group, label, file_name)
             
             # add track to Give panel by GET method
-            track_string = ''.join(tracks)
+            track_string = '-'.join(tracks)
             give_url = '../panel?selectedtracks=' + track_string
     else:
         # initialize track selection form
@@ -65,7 +65,7 @@ def panel(request):
     selectedtracks = request.GET.copy().get('selectedtracks')
     if selectedtracks:
         # customized tracks
-        track_ids_string = list(selectedtracks)
+        track_ids_string = selectedtracks.split('-')
         track_ids = [s for s in track_ids_string]
         tracks = ['\"'+tracks_dict[i]+'\",' for i in track_ids[:-1]]
         tracks.append('\"'+tracks_dict[track_ids[-1]]+'\"')
