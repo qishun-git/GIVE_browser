@@ -1,3 +1,17 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
 eggs/
 .eggs/
 lib/
@@ -70,6 +84,7 @@ target/
 *.log
 *.sql
 *.sqlite
+*.sqlite3
 
 # OS generated files #
 ######################
