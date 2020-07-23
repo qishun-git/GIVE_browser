@@ -1,0 +1,226 @@
+<!-- {% load static %} -->
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'browser/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'browser/dashboard.css' %}"> -->
+  <link rel="stylesheet" type="text/css" href="{% static 'browser/basic2.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'browser/basic.css' %}">
+
+  <!-- GIVE browser -->
+  <!-- <script src="http://sc.gersteinlab.org:40080/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+    <link rel="import" href="http://sc.gersteinlab.org:40080/components/chart-controller/chart-controller.html">
+    <link rel="import" href="http://sc.gersteinlab.org:40080/components/chart-area/chart-area.html"> -->
+
+  <style>
+    footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: rgba(106, 162, 184, 1.0);
+      color: white;
+      text-align: center;
+
+    }
+
+    .modal {
+      display: none;
+      /* Hidden by default */
+      position: fixed;
+      /* Stay in place */
+      z-index: 1;
+      /* Sit on top */
+      padding-top: 100px;
+      /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%;
+      /* Full width */
+      height: 100%;
+      /* Full height */
+      overflow: auto;
+      /* Enable scroll if needed */
+      background-color: rgb(0, 0, 0);
+      /* Fallback color */
+      background-color: rgba(0, 0, 0, 0.4);
+      /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 50%;
+    }
+
+    /* The Close Button */
+    .close {
+      color: #aaaaaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .holds-the-iframe {
+      position: relative;
+      background: url(https://media.giphy.com/media/swhRkVYLJDrCE/giphy.gif) center center no-repeat;
+    }
+  </style>
+
+
+
+  {% if title %}
+  <title>GIVE - {{ title }}</title>
+  {% else %}
+  <title>PARSE</title>
+  {% endif %}
+
+</head>
+
+<body class="ver_83.0 eng_webkit brwsr_chrome pg-login ">
+  <div class="main container-fluid">
+    <div class="row">
+
+      <!-- Begin Header -->
+      <div class="header col-md-12" role="banner">
+        <header id="branding-header">
+          <div class="header-wrapper flex-container">
+            <div class="logo-container">
+              <a href="" target="_blank">
+                <img src="/static/logo.png" alt="PARSE Logo" class="logo" /></a>
+            </div>
+          </div>
+        </header>
+
+        <div class="user-head-section"></div>
+        <div class="clear"></div>
+
+        <div class="nav-top">
+          <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+              <div class="navbar-header">
+
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                  data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+              </div>
+
+              <div class="collapse navbar-collapse cand-nav" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <li><a href="{% url 'browser-home' %}">Home</a></li>
+                  <li><a href="{% url 'browser-browser' %}">Browser</a></li>
+                  <li><a href="{% url 'browser-about' %}">About</a></li>
+
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                  <li class="header-login-reg-links">
+                    <span>
+                      <a href="{% url 'browser-contact' %}">Contact</a>
+                    </span>
+                  </li>
+                </ul>
+              </div>
+
+            </div> <!-- End container-fluid -->
+
+          </nav><!-- End nav-top -->
+        </div>
+
+        <!-- End nav-top -->
+      </div>
+      <!-- End Header -->
+
+      <!-- Begin Content -->
+      <div class="content" role="main">
+        {% block content %}{% endblock %}
+      </div>
+      <!-- End Main Content -->
+
+
+      <footer>
+        <p>© 2020 PARSE</p>
+      </footer>
+      <!-- Begin Footer -->
+      <!-- <footer class="footer col-md-12" role="contentinfo">
+        <div class="footer-bottom">
+          <div class="footer-section" id="social-copyright">
+            <div class="flex-container">
+              <div class="footer-social">
+                <ul>
+                  <li>
+                    <a href="#" target="_blank" rel="noopener noreferrer">
+                      <svg width="24" height="24" viewBox="0 0 24 24" class="A1-footer__icon u-facebook" aria-hidden="true">
+                        <path d="#"></path>
+                      </svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" target="_blank" rel="noopener noreferrer">
+                      <svg width="24" height="24" viewBox="0 0 24 24" class="A1-footer__icon u-linkedin" aria-hidden="true">
+                        <path d="#"></path>
+                      </svg>
+                    </a>
+                  </li>
+        
+                </ul>
+              </div>
+              <div class="footer-copyright">
+                <span class="copyright"> © 2020 PARSE</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </footer> -->
+      <!-- End Footer -->
+
+
+    </div>
+    <!-- End Row -->
+
+  </div>
+
+
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+  </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+  </script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+  </script>
+  <!-- <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
+    <script src="../assets/dist/js/bootstrap.bundle.js"></script> -->
+</body>
+
+</html>
