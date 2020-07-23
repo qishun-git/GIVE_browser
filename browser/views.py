@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from .forms import DataTrackForm
-from .runbash import AddFile
+from .runbash import ManageGiveData
 import json
 
 
@@ -27,7 +27,7 @@ def browser(request):
             give_url = '../panel'
         else:
             # add file to GIVE container
-            adder = AddFile()
+            eidtor = ManageGiveData()
             for track_id in tracks:
                 # get metadata for each track
                 track = data.get(track_id)
@@ -36,7 +36,7 @@ def browser(request):
                 group = track.get('group')
                 label = track.get('label')
                 file_name = track.get('file_name')
-                adder.add(file_type, track_name, group, label, file_name)
+                eidtor.add(file_type, track_name, group, label, file_name)
             
             # add track to Give panel by GET method
             track_string = '-'.join(tracks)

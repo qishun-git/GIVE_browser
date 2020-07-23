@@ -1,6 +1,9 @@
 import subprocess
 
-class AddFile():
+class ManageGiveData():
+    group_set = set(['genes', 'GWAS', 'LD', 'linkage', 'phastCons100Way', 'RADAR'])
+
+    
     def add(self, file_type, track_name, group_name, short_label, file_name):
         if file_type == 'geneAnnot':
             subprocess.call(['static/add_geneAnnot.sh', track_name, group_name, short_label, file_name])
@@ -12,3 +15,11 @@ class AddFile():
             subprocess.call(['static/add_interaction.sh', track_name, group_name, short_label, file_name])
         else:
             print("Unsupported file type!")
+
+
+    def delete(self, group_name, track_name):
+        if group_name in self.group_set:
+            subprocess.call(['static/delete_file.sh', group_name, track_name])
+        else:
+            print("No such group!")
+
