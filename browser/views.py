@@ -38,7 +38,7 @@ def browser(request):
                 file_name = track.get('file_name')
                 adder.add(file_type, track_name, group, label, file_name)
             
-            # add track to Give panel by GET
+            # add track to Give panel by GET method
             track_string = ''.join(tracks)
             give_url = '../panel?selectedtracks=' + track_string
     else:
