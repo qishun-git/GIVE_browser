@@ -22,7 +22,7 @@ def browser(request):
     if request.method == 'POST':
         # get user seleted tracks by POST
         form = DataTrackForm(request.POST)
-        tracks = request.POST.getlist('data_track_field')
+        tracks = request.POST.getlist('data_tracks')
         if len(tracks) <= 0:
             give_url = '../panel'
         else:

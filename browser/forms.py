@@ -7,7 +7,8 @@ class DataTrackForm(forms.Form):
     with open('static/data.json') as f:
         tracks_dict = json.load(f)
 
-    DEMO_CHOICES = []
+    # Grab only the ids and file_names
+    DATA_TRACKS = []
     for k, v in tracks_dict.items():
-        DEMO_CHOICES.append((k, v.get('file_name')))
-    data_track_field = forms.MultipleChoiceField(choices=DEMO_CHOICES, widget=forms.CheckboxSelectMultiple)
+        DATA_TRACKS.append((k, v.get('file_name')))
+    data_tracks = forms.MultipleChoiceField(choices=DATA_TRACKS, widget=forms.CheckboxSelectMultiple)
