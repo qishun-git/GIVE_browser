@@ -13,9 +13,11 @@
 </div> -->
 
 <div id="main-content" class="right-column col-md-12">
-    <!-- Trigger/Open The Modal -->
-    <button id="myBtn" class="myButton">Add Data & View</button>
-
+    <div id="menu-bar">
+        <button id="myBtn" class="myButton">Add Data & View</button>
+        <span>Instruction:</span> 
+    </div>
+    
     <!-- The Modal -->
     <div id="myModal" class="modal">
 
@@ -67,7 +69,7 @@
     <div id="popup-loader" class="modal loader-modal">
         <div class="modal-content">
             <div class="loader"></div>
-            <p>Please wait while uploading data tracks...</p>
+            <p>Please wait while loading data tracks...</p>
         </div>
     </div>
 
@@ -79,7 +81,6 @@
 
     <script>
         var frame = document.getElementById("give-iframe");
-        // var loader = document.getElementById("holds-the-iframe");
         var submitBtn = document.getElementById("submit-btn");
         var popupLoader = document.getElementById("popup-loader");
 
@@ -87,6 +88,9 @@
             popupLoader.style.display = "block";
         }
 
+        frame.onload = function() {
+            popupLoader.style.display = "none";
+        }
     </script>
 
 </div>

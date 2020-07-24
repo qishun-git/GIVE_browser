@@ -56,11 +56,6 @@ footer {
   cursor: pointer;
 }
 
-.holds-the-iframe {
-  position: relative;
-  background: url(https://media.giphy.com/media/swhRkVYLJDrCE/giphy.gif) center center no-repeat;
-}
-
 .myButton {
   background-color: #6AA2B8;
   border-radius: 3px;
@@ -85,6 +80,7 @@ footer {
 }
 
 .loader-modal {
+  display: block;
   padding-top: 30vh;
   width: 50%;
   margin: 0 auto;
