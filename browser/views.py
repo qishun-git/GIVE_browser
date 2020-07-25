@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
-from .forms import DataTrackForm
+from .forms import DataTrackForm, CoordinateForm
 from .runbash import ManageGiveData
 import json
 
@@ -19,6 +19,7 @@ for k, v in data.items():
 
 
 def browser(request):
+    coorform = CoordinateForm(request.GET)
     if request.method == 'POST':
         # get user seleted tracks by POST
         form = DataTrackForm(request.POST)
@@ -49,7 +50,8 @@ def browser(request):
     context = {
         'title':'Browser', 
         'give_url':give_url,
-        'form': form
+        'form': form,
+        'coorform': coorform
     }
     return render(request,'browser/browser.html', context) 
 
@@ -77,6 +79,24 @@ def panel(request):
         'tracks': tracks
     }
     return render(request, 'browser/give_panel.html', context)
+
+
+def panelarea(request):
+    selectedtracks = request.GET.copy().get('selectedtracks')
+    if selectedtracks:
+        # customized tracks
+        track_ids_string = selectedtracks.split('-')
+        track_ids = [s for s in track_ids_string]
+        tracks = ['\"'+tracks_dict[i]+'\",' for i in track_ids[:-1]]
+        tracks.append('\"'+tracks_dict[track_ids[-1]]+'\"')
+    else:
+        # default tracks
+        tracks = []
+    context = {
+        'title':'GIVE-Panel', 
+        'tracks': tracks
+    }
+    return render(request, 'browser/give_area.html', context)
 
 
     

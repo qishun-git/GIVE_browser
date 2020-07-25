@@ -9,6 +9,11 @@ footer {
 
 }
 
+#main-content {
+  background-color: #ffffff;
+}
+
+
 .modal {
   display: none;
   /* Hidden by default */

@@ -1,8 +1,8 @@
 {
-    "10": {"file_type": "geneAnnot", "track_name": "exampleKnownGene", "group": "genes", "label": "UCSC Genes", "file_name": "knownGene.txt"}, 
+    "0": {"file_type": "geneAnnot", "track_name": "KnownGene", "group": "genes", "label": "UCSC Genes", "file_name": "knownGene.txt"}, 
     "1": {"file_type": "bed", "track_name": "gwas", "group": "GWAS", "label": "GWAS", "file_name": "gwas.bed"}, 
     "2": {"file_type": "bed", "track_name": "ld", "group": "LD", "label": "LD", "file_name": "ld.bed"}, 
-    "3": {"file_type": "interaction", "track_name": "exampleInteractions", "group": "linkage", "label": "example linkage data", "file_name": "example.interaction"}, 
+    "3": {"file_type": "interaction", "track_name": "linkage", "group": "linkage", "label": "linkage data", "file_name": "linkage.interaction"}, 
     "4": {"file_type": "bigwig", "track_name": "RADARbw", "group": "RADAR", "label": "RADAR", "file_name": "radar.bw"}, 
     "5": {"file_type": "bigwig", "track_name": "phastConsbw", "group": "phastCons100way", "label": "phastCons", "file_name": "hg38.phastCons100way.bw"}
 }

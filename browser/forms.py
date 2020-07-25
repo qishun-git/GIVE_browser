@@ -12,3 +12,7 @@ class DataTrackForm(forms.Form):
     for k, v in tracks_dict.items():
         DATA_TRACKS.append((k, v.get('file_name')))
     data_tracks = forms.MultipleChoiceField(choices=DATA_TRACKS, widget=forms.CheckboxSelectMultiple)
+
+
+class CoordinateForm(forms.Form):
+    coordinate = forms.TextInput()
