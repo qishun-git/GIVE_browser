@@ -12,10 +12,13 @@
         </div>
 </div> -->
 
-<div id="main-content" class="right-column col-md-12">
-    <div id="menu-bar">
+<div id="main-content" class="right-column col-md-12" style="background: #FBFCFE">
+    <div>
+        <p class="text"><Strong>Instruction:</Strong>Here needs some introduction of this software.</p>
+    </div>
+
+    <div id="menu-bar" style="margin:15px 0;">
         <button id="myBtn" class="myButton">Add Data & View</button>
-        <span>Instruction:</span>
     </div>
 
     <!-- The Modal -->
@@ -25,7 +28,7 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <p>Please choose the data tracks:</p>
-            <form method="post">
+            <form method="post" class="select-form">
                 {% csrf_token %}
                 <fieldset class="form-group">
                     {{ form.as_p }}
@@ -93,5 +96,48 @@
         }
     </script>
 
+    <style>
+
+        /* 使Button和别的页面一致 */
+        
+        #myBtn,#submit-btn{
+            cursor: pointer;
+            padding: 10px 30px;
+            background: #B7CFDC;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .select-form{
+            margin:10px 0 0;
+        }
+
+        #submit-btn{
+            padding: 5px 10px;
+            margin-top:10px;
+        }
+
+        .form-group{
+            border-radius:10px;
+            padding:10px 0 10px 20px;
+        }
+
+        /* 去除每个选项前面的'点' */
+        
+        .form-group li{
+            list-style: none;
+        }
+
+
+        /* 修改loading的位置 */
+
+        #popup-loader{ 
+            margin-left:30%;
+        }
+    
+    </style>
 </div>
 {% endblock content %}
+
