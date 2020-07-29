@@ -55,13 +55,6 @@ def browser(request):
     }
     return render(request,'browser/browser.html', context) 
 
-def about(request):
-    return render(request,'browser/about.html', {'title':'About'})
-
-def contact(request):
-    return render(request,'browser/contact.html', {'title':'Contact'})
-
-
 
 def panel(request):
     selectedtracks = request.GET.copy().get('selectedtracks')
@@ -80,23 +73,6 @@ def panel(request):
     }
     return render(request, 'browser/give_panel.html', context)
 
-
-def panelarea(request):
-    selectedtracks = request.GET.copy().get('selectedtracks')
-    if selectedtracks:
-        # customized tracks
-        track_ids_string = selectedtracks.split('-')
-        track_ids = [s for s in track_ids_string]
-        tracks = ['\"'+tracks_dict[i]+'\",' for i in track_ids[:-1]]
-        tracks.append('\"'+tracks_dict[track_ids[-1]]+'\"')
-    else:
-        # default tracks
-        tracks = []
-    context = {
-        'title':'GIVE-Panel', 
-        'tracks': tracks
-    }
-    return render(request, 'browser/give_area.html', context)
 
 
     
