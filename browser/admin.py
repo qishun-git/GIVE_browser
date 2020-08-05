@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Track
+from .models import Track, Coordinates
 
 # Register your models here.
-admin.site.register(Track)
+models_list = [Track, Coordinates]
+admin.site.register(models_list)

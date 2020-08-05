@@ -4,7 +4,7 @@ from django.urls import reverse
 from .forms import DataTrackForm
 from .runbash import ManageGiveData
 import json
-from .models import Track
+from .models import Track, Coordinates
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -91,7 +91,14 @@ def addViz(request):
             file_name = track.get('file_name')
             new_track = Track(file_type=file_type,track_name=track_name,group=group,label=label,file_name=file_name)
             new_track.save()
-
+            cor_dict = track.get('coordinates')
+            for k,v in cor_dict.items():
+                chromosome = k
+                for pair in v:
+                    start = pair[0]
+                    end = pair[1]
+                    new_cor = Coordinates(chromosome=chromosome,start=start,end=end,track=new_track)
+                    new_cor.save()
     return HttpResponse(status=204)
 
 
