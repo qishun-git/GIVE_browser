@@ -33,7 +33,7 @@ def browser(request):
             editor = ManageGiveData()
             for track_id in tracks:
                 # get metadata for each track
-                track = data.get(track_id=track_id)
+                track = data.get(pk=track_id)
                 file_type = track.file_type
                 track_name = track.track_name
                 group = track.group
@@ -60,18 +60,39 @@ def browser(request):
 
 def panel(request):
     data = Track.objects.all()
-    selectedtracks = request.GET.copy().get('selectedtracks')
+    selectedtracks = request.GET.get('selectedtracks')
+    num_of_subs = request.GET.get('num_of_subs', 2)
+    coordinates = ["\"chr10:30000059-30010059\",", "\"chr10:30000059-30010059\""]
+    tracks = []
     if selectedtracks:
         # customized tracks
         track_ids_string = selectedtracks.split('-')
         track_ids = [s for s in track_ids_string]
-        tracks = ['\"'+data.get(track_id=i).track_name+'\",' for i in track_ids[:-1]]
-        tracks.append('\"'+data.get(track_id=track_ids[-1]).track_name+'\"')
-    else:
-        # default tracks
-        tracks = []
+        
+        for i in range(len(track_ids)):
+            t_id = track_ids[i]
+            t = data.get(pk=t_id)
+            track = '\"'+t.track_name+'\",' if i < len(track_ids)-1 else '\"'+t.track_name
+            tracks.append(track)
+            cors_list = Coordinates.objects.filter(track=t)
+
+            if cors_list and len(cors_list) > 0:
+                cors = cors_list[0]
+                ch = cors.chromosome
+                start = cors.start
+                end = cors.end
+                cor_string = '\"' + ch + ':' + start + '-' + end + '\"'
+                print("here:"+t.group)
+                if t.group == "GWAS":
+                    coordinates[0] = cor_string + ','
+                else:
+                    coordinates[1] = cor_string
+
+
     context = {
-        'title':'GIVE-Panel', 
+        'title': 'GIVE-Panel', 
+        'subs': num_of_subs,
+        'coors': coordinates,
         'tracks': tracks
     }
     return render(request, 'browser/give_panel.html', context)
