@@ -11,6 +11,7 @@ class Track(models.Model):
     label = models.CharField(max_length=100)
     file_name = models.CharField(max_length=100)
     creater = models.GenericIPAddressField(default="0.0.0.0")
+    public = models.BooleanField(default=True)
 
     def __str__(self):
         return self.track_name
