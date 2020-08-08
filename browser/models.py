@@ -9,6 +9,7 @@ class Track(models.Model):
     group = models.CharField(max_length=50)
     label = models.CharField(max_length=100)
     file_name = models.CharField(max_length=100)
+    creater = models.GenericIPAddressField(default="0.0.0.0")
 
     def __str__(self):
         return self.file_name

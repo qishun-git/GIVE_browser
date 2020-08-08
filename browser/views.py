@@ -19,12 +19,21 @@ def home(request):
 # for k, v in data.items():
 #     tracks_dict[k] = v.get('track_name')
 
+def getIP(request):
+    from ipware import get_client_ip
+    ip, _ = get_client_ip(request)
+    if ip is None:
+        # Unable to get the client's IP address
+        return "0.0.0.0"
+    else:
+        return ip
 
 def browser(request):
+    ip = getIP(request)
     data = Track.objects.all()
     if request.method == 'POST':
         # get user seleted tracks by POST
-        form = DataTrackForm(request.POST)
+        form = DataTrackForm(request.POST, creater=ip)
         tracks = request.POST.getlist('track_list')
         if not tracks or len(tracks) <= 0:
             give_url = '../panel'
@@ -47,7 +56,7 @@ def browser(request):
             # print(give_url)
     else:
         # initialize track selection form
-        form = DataTrackForm()    
+        form = DataTrackForm(creater=ip)    
         give_url = '../panel'
     
     context = {
@@ -110,7 +119,8 @@ def addViz(request):
             group = track.get('group')
             label = track.get('label')
             file_name = track.get('file_name')
-            new_track = Track(file_type=file_type,track_name=track_name,group=group,label=label,file_name=file_name)
+            creater = track.get('creater')
+            new_track = Track(file_type=file_type,track_name=track_name,group=group,label=label,file_name=file_name,creater=creater)
             new_track.save()
             cor_dict = track.get('coordinates')
             for k,v in cor_dict.items():
@@ -121,12 +131,3 @@ def addViz(request):
                     new_cor = Coordinates(chromosome=chromosome,start=start,end=end,track=new_track)
                     new_cor.save()
     return HttpResponse(status=204)
-
-
-
-
-
-
-
-    
-
