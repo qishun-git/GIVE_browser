@@ -114,15 +114,16 @@ def addViz(request):
         
         track_list = json_data.get('track_list')
         for track in track_list:
-            file_type = track.get('file_type')
-            track_name = track.get('track_name')
-            group = track.get('group')
-            label = track.get('label')
-            file_name = track.get('file_name')
-            creater = track.get('creater')
-            new_track = Track(file_type=file_type,track_name=track_name,group=group,label=label,file_name=file_name,creater=creater)
+            file_type = track.get('file_type', '')
+            ip_track_name = track.get('track_name', '0_0_0_0.name')
+            creater, track_name = ip_track_name.split('.')
+            creater = '.'.join(creater.split('_'))
+            group = track.get('group', '')
+            label = track.get('label', '')
+            file_name = track.get('file_name', '')
+            new_track = Track(ip_track_name=ip_track_name,file_type=file_type,track_name=track_name,group=group,label=label,file_name=file_name,creater=creater)
             new_track.save()
-            cor_dict = track.get('coordinates')
+            cor_dict = track.get('coordinates', {})
             for k,v in cor_dict.items():
                 chromosome = k
                 for pair in v:
