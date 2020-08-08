@@ -3,15 +3,17 @@ from django.db import models
 # Create your models here.
 class Track(models.Model):
     # file_type = models.TextChoices('geneAnnot','bed','bigwig')
+    ip_track_name = models.CharField(max_length=60, primary_key=True)
     file_type = models.CharField(max_length=50)
-    track_name = models.CharField(max_length=50, primary_key=True)
+    track_name = models.CharField(max_length=50)
     # group = models.TextChoices('genes','GWAS','LD','RADAR','phastCons100way')
     group = models.CharField(max_length=50)
     label = models.CharField(max_length=100)
     file_name = models.CharField(max_length=100)
+    creater = models.GenericIPAddressField(default="0.0.0.0")
 
     def __str__(self):
-        return self.file_name
+        return self.track_name
 
 class Coordinates(models.Model):
     coordinates_id = models.AutoField(primary_key=True)
@@ -21,6 +23,6 @@ class Coordinates(models.Model):
     track = models.ForeignKey(Track, on_delete=models.CASCADE)
 
     def __str__(self):
-        name = self.track.track_name + " : " + self.chromosome + " : " + self.start + "-" + self.end
+        name = self.track.ip_track_name + " : " + self.chromosome + " : " + self.start + "-" + self.end
         return name
 
