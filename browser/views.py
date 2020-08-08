@@ -116,12 +116,18 @@ def addViz(request):
         for track in track_list:
             file_type = track.get('file_type', '')
             ip_track_name = track.get('track_name', '0_0_0_0.name')
-            creater, track_name = ip_track_name.split('.')
-            creater = '.'.join(creater.split('_'))
+            try: 
+                creater, track_name = ip_track_name.split('.')
+                creater = '.'.join(creater.split('_'))
+                public = False
+            except:
+                public = True
+                creater = "0.0.0.0"
+                track_name = ip_track_name
             group = track.get('group', '')
             label = track.get('label', '')
             file_name = track.get('file_name', '')
-            new_track = Track(ip_track_name=ip_track_name,file_type=file_type,track_name=track_name,group=group,label=label,file_name=file_name,creater=creater)
+            new_track = Track(ip_track_name=ip_track_name,file_type=file_type,track_name=track_name,group=group,label=label,file_name=file_name,creater=creater,public=public)
             new_track.save()
             cor_dict = track.get('coordinates', {})
             for k,v in cor_dict.items():
