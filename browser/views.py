@@ -4,6 +4,7 @@ from django.urls import reverse
 from .forms import DataTrackForm
 from .runbash import ManageGiveData
 import json
+import re
 from .models import Track, Coordinates
 from django.views.decorators.csrf import csrf_exempt
 
@@ -11,24 +12,16 @@ from django.views.decorators.csrf import csrf_exempt
 def home(request):
     return render(request,'browser/home.html',{'title':'Home'})
 
-# # track mapping
-# with open('static/data.json') as f:
-#         data = json.load(f)
-# # create a track list
-# tracks_dict = {}
-# for k, v in data.items():
-#     tracks_dict[k] = v.get('track_name')
-
-def getIP(request):
-    from ipware import get_client_ip
-    ip, _ = get_client_ip(request)
-    if ip is None:
-        # Unable to get the client's IP address
-        return "0.0.0.0"
-    else:
-        return ip
 
 def browser(request):
+    def getIP(request):
+        from ipware import get_client_ip
+        ip, _ = get_client_ip(request)
+        if ip is None:
+            # Unable to get the client's IP address
+            return "0.0.0.0"
+        else:
+            return ip
     ip = getIP(request)
     data = Track.objects.all()
     if request.method == 'POST':
@@ -44,7 +37,7 @@ def browser(request):
                 # get metadata for each track
                 track = data.get(pk=track_id)
                 file_type = track.file_type
-                track_name = track.track_name
+                track_name = track.ip_track_name
                 group = track.group
                 label = track.label
                 file_name = track.file_name
@@ -53,7 +46,7 @@ def browser(request):
             # add track to Give panel by GET method
             track_string = '-'.join(tracks)
             give_url = '../panel?selectedtracks=' + track_string
-            # print(give_url)
+
     else:
         # initialize track selection form
         form = DataTrackForm(creater=ip)    
@@ -91,7 +84,6 @@ def panel(request):
                 start = cors.start
                 end = cors.end
                 cor_string = '\"' + ch + ':' + start + '-' + end + '\"'
-                print("here:"+t.group)
                 if t.group == "GWAS":
                     coordinates[0] = cor_string + ','
                 else:
@@ -115,10 +107,9 @@ def addViz(request):
         track_list = json_data.get('track_list')
         for track in track_list:
             file_type = track.get('file_type', '')
-            ip_track_name = track.get('track_name', '0_0_0_0.name')
+            ip_track_name = track.get('track_name', '0.0.0.0|name')
             try: 
-                creater, track_name = ip_track_name.split('.')
-                creater = '.'.join(creater.split('_'))
+                creater, track_name = ip_track_name.split('|')
                 public = False
             except:
                 public = True
@@ -127,7 +118,15 @@ def addViz(request):
             group = track.get('group', '')
             label = track.get('label', '')
             file_name = track.get('file_name', '')
-            new_track = Track(ip_track_name=ip_track_name,file_type=file_type,track_name=track_name,group=group,label=label,file_name=file_name,creater=creater,public=public)
+            new_track = Track(
+                ip_track_name=ip_track_name,
+                file_type=file_type,
+                track_name=track_name,
+                group=group,label=label,
+                file_name=file_name,
+                creater=creater,
+                public=public
+                )
             new_track.save()
             cor_dict = track.get('coordinates', {})
             for k,v in cor_dict.items():
