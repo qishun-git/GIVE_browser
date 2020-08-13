@@ -63,8 +63,8 @@ def browser(request):
 def panel(request):
     data = Track.objects.all()
     selectedtracks = request.GET.get('selectedtracks')
-    num_of_subs = request.GET.get('num_of_subs', 2)
-    coordinates = ["\"chr10:30000059-30010059\",", "\"chr10:30000059-30010059\""]
+    num_of_subs = request.GET.get('num_of_subs', 1)
+    coordinates = "\"chr10:30000059-30010059\""
     tracks = []
     if selectedtracks:
         # customized tracks
@@ -85,15 +85,13 @@ def panel(request):
                 end = cors.end
                 cor_string = '\"' + ch + ':' + start + '-' + end + '\"'
                 if t.group == "GWAS":
-                    coordinates[0] = cor_string + ','
-                else:
-                    coordinates[1] = cor_string
+                    coordinates = cor_string
 
 
     context = {
         'title': 'GIVE-Panel', 
         'subs': num_of_subs,
-        'coors': coordinates,
+        'coor': coordinates,
         'tracks': tracks
     }
     return render(request, 'browser/give_panel.html', context)
