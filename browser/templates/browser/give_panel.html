@@ -12,7 +12,9 @@
 
 <body>
   <!-- Embed the browser in your web page -->
-  <chart-controller ref='["hg38"]' 
+  <chart-controller 
+    title-text="PARSE - GWAS and LD SNPs visualization" 
+    ref='["hg38"]' 
     coordinate='[  {{ coors }}  ]'
     group-id-list='["genes", "GWAS", "LD", "phastCons100way", "RADAR"]'
     default-track-id-list='[ {% for track in tracks %} {{ track }} {% endfor %} ]'>

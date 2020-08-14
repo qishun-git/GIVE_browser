@@ -44,7 +44,7 @@ def browser(request):
                 editor.add(file_type, track_name, group, label, file_name)
             
             # add track to Give panel by GET method
-            track_string = '-'.join(tracks)
+            track_string = '|'.join(tracks)
             give_url = '../panel?selectedtracks=' + track_string
 
     else:
@@ -68,7 +68,7 @@ def panel(request):
     tracks = []
     if selectedtracks:
         # customized tracks
-        track_ids_string = selectedtracks.split('-')
+        track_ids_string = selectedtracks.split('|')
         track_ids = [s for s in track_ids_string]
         
         for i in range(len(track_ids)):
@@ -89,7 +89,7 @@ def panel(request):
 
 
     context = {
-        'title': 'GIVE-Panel', 
+        'title': 'Visualization-Panel', 
         'subs': num_of_subs,
         'coor': coordinates,
         'tracks': tracks
