@@ -64,7 +64,7 @@ def panel(request):
     data = Track.objects.all()
     selectedtracks = request.GET.get('selectedtracks')
     num_of_subs = request.GET.get('num_of_subs', 1)
-    coordinates = "\"chr10:30000059-30010059\""
+    coordinates = "\"chr10:30000000-30010000\""
     tracks = []
     if selectedtracks:
         # customized tracks
@@ -76,15 +76,14 @@ def panel(request):
             t = data.get(pk=t_id)
             track = '\"'+t.track_name+'\",' if i < len(track_ids)-1 else '\"'+t.track_name+'\"'
             tracks.append(track)
-            cors_list = Coordinates.objects.filter(track=t)
-
-            if cors_list and len(cors_list) > 0:
-                cors = cors_list[0]
-                ch = cors.chromosome
-                start = cors.start
-                end = cors.end
-                cor_string = '\"' + ch + ':' + start + '-' + end + '\"'
-                if t.group == "GWAS":
+            if t.group == "GWAS":
+                cors_list = Coordinates.objects.filter(track=t)
+                if cors_list and len(cors_list) > 0:
+                    cors = cors_list
+                    ch = cors.chromosome
+                    start = cors.start
+                    end = cors.end
+                    cor_string = '\"' + ch + ':' + start + '-' + end + '\"'
                     coordinates = cor_string
 
 
