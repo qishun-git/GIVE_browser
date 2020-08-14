@@ -79,7 +79,7 @@ def panel(request):
             if t.group == "GWAS":
                 cors_list = Coordinates.objects.filter(track=t)
                 if cors_list and len(cors_list) > 0:
-                    cors = cors_list[0]
+                    cors = cors_list
                     ch = cors.chromosome
                     start = cors.start
                     end = cors.end
@@ -90,7 +90,7 @@ def panel(request):
     context = {
         'title': 'Visualization-Panel', 
         'subs': num_of_subs,
-        'coor': coordinates,
+        'coors': coordinates,
         'tracks': tracks
     }
     return render(request, 'browser/give_panel.html', context)
