@@ -107,9 +107,10 @@ def addViz(request):
         track_list = json_data.get('track_list')
         for track in track_list:
             file_type = track.get('file_type', '')
-            ip_track_name = track.get('track_name', '0.0.0.0|name')
+            ip_track_name = track.get('track_name', '')
             try: 
-                creater, track_name = ip_track_name.split('|')
+                creater, track_name = ip_track_name.split('-')
+                creater = creater.replace('_', '.')
                 public = False
             except:
                 public = True
@@ -122,7 +123,8 @@ def addViz(request):
                 ip_track_name=ip_track_name,
                 file_type=file_type,
                 track_name=track_name,
-                group=group,label=label,
+                group=group,
+                label=label,
                 file_name=file_name,
                 creater=creater,
                 public=public
