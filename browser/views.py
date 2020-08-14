@@ -37,7 +37,7 @@ def browser(request):
                 # get metadata for each track
                 track = data.get(pk=track_id)
                 file_type = track.file_type
-                track_name = track.ip_track_name
+                track_name = track.track_name
                 group = track.group
                 label = track.label
                 file_name = track.file_name
