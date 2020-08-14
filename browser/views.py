@@ -79,7 +79,7 @@ def panel(request):
             if t.group == "GWAS":
                 cors_list = Coordinates.objects.filter(track=t)
                 if cors_list and len(cors_list) > 0:
-                    cors = cors_list
+                    cors = cors_list[0]
                     ch = cors.chromosome
                     start = cors.start
                     end = cors.end
