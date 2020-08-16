@@ -1,7 +1,6 @@
 import subprocess
 
 class ManageGiveData():
-    group_set = set(['genes', 'GWAS', 'LD', 'linkage', 'phastCons100Way', 'RADAR'])
 
     
     def add(self, file_type, track_name, group_name, short_label, file_name):
@@ -18,8 +17,14 @@ class ManageGiveData():
 
 
     def delete(self, group_name, track_name):
-        if group_name in self.group_set:
+        try:
             subprocess.call(['static/delete_file.sh', group_name, track_name])
-        else:
-            print("No such group!")
+        except:
+            print('Error deleting data!')
 
+    
+    def reset(self):
+        try:
+            subprocess.call(['static/reset.sh'])
+        except:
+            print('Error reset!')
