@@ -37,14 +37,14 @@ def browser(request):
                 # get metadata for each track
                 track = data.get(pk=track_id)
                 file_type = track.file_type
-                track_name = track.ip_track_name
+                track_name = track.track_name
                 group = track.group
                 label = track.label
                 file_name = track.file_name
                 editor.add(file_type, track_name, group, label, file_name)
             
             # add track to Give panel by GET method
-            track_string = '-'.join(tracks)
+            track_string = '|'.join(tracks)
             give_url = '../panel?selectedtracks=' + track_string
 
     else:
@@ -63,12 +63,12 @@ def browser(request):
 def panel(request):
     data = Track.objects.all()
     selectedtracks = request.GET.get('selectedtracks')
-    num_of_subs = request.GET.get('num_of_subs', 2)
-    coordinates = ["\"chr10:30000059-30010059\",", "\"chr10:30000059-30010059\""]
+    num_of_subs = request.GET.get('num_of_subs', 1)
+    coordinates = "\"chr10:30000000-50000000\""
     tracks = []
     if selectedtracks:
         # customized tracks
-        track_ids_string = selectedtracks.split('-')
+        track_ids_string = selectedtracks.split('|')
         track_ids = [s for s in track_ids_string]
         
         for i in range(len(track_ids)):
@@ -76,22 +76,20 @@ def panel(request):
             t = data.get(pk=t_id)
             track = '\"'+t.track_name+'\",' if i < len(track_ids)-1 else '\"'+t.track_name+'\"'
             tracks.append(track)
-            cors_list = Coordinates.objects.filter(track=t)
-
-            if cors_list and len(cors_list) > 0:
-                cors = cors_list[0]
-                ch = cors.chromosome
-                start = cors.start
-                end = cors.end
-                cor_string = '\"' + ch + ':' + start + '-' + end + '\"'
-                if t.group == "GWAS":
-                    coordinates[0] = cor_string + ','
-                else:
-                    coordinates[1] = cor_string
+            # get GWAS coordinates
+            if t.group == "GWAS":
+                cors_list = Coordinates.objects.filter(track=t)
+                if cors_list and len(cors_list) > 0:
+                    cors = cors_list[0]
+                    ch = cors.chromosome
+                    start = cors.start
+                    end = cors.end
+                    cor_string = '\"' + ch + ':' + start + '-' + end + '\"'
+                    coordinates = cor_string
 
 
     context = {
-        'title': 'GIVE-Panel', 
+        'title': 'Visualization-Panel', 
         'subs': num_of_subs,
         'coors': coordinates,
         'tracks': tracks

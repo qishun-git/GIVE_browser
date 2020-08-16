@@ -14,10 +14,11 @@
 
 <div id="main-content" class="right-column col-md-12" style="background: #FBFCFE"></div>
     <div>
-        <p class="text"><Strong>Instruction: </Strong>Please make a query first.</p>
+        <p class="text"><Strong>Instruction: </Strong>Please make sure you've made a query under Find LD SNPs tab.</p>
     </div>
 
     <div id="menu-bar" style="margin:15px 0;">
+        <a id="myBtn2" class="myButton" href="http://sc.gersteinlab.org:8047/find">Make A Query</a>
         <button id="myBtn" class="myButton">Add Data & View</button>
     </div>
 
@@ -100,7 +101,7 @@
 
         /* 使Button和别的页面一致 */
         
-        #myBtn,#submit-btn{
+        #myBtn,#myBtn2,#submit-btn{
             cursor: pointer;
             padding: 10px 30px;
             background: #B7CFDC;
@@ -120,6 +121,10 @@
         }
 
         #myBtn:hover{
+           color:black
+        }
+
+        #myBtn2:hover{
            color:black
         }
         

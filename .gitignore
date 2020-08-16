@@ -3,7 +3,7 @@ newgive/__pycache__/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
-
+newgive/__pycache__/
 # C extensions
 *.so
 
