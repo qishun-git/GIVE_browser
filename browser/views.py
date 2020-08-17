@@ -1,12 +1,17 @@
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
-from django.urls import reverse
-from .forms import DataTrackForm
-from .runbash import ManageGiveData
+from django.http                        import HttpResponse, HttpResponseRedirect
+from django.shortcuts                   import get_object_or_404, render
+from django.urls                        import reverse
+from django.views.decorators.csrf       import csrf_exempt
+from django.conf                        import settings
+from .forms                             import DataTrackForm
+from .runbash                           import ManageGiveData
+from .models                            import Track, Coordinates
+
 import json
 import re
-from .models import Track, Coordinates
-from django.views.decorators.csrf import csrf_exempt
+import os
+import glob
+
 
 
 def home(request):
@@ -137,3 +142,40 @@ def addViz(request):
                     new_cor = Coordinates(chromosome=chromosome,start=start,end=end,track=new_track)
                     new_cor.save()
     return HttpResponse(status=204)
+
+
+def delete_files():
+    files = glob.glob(settings.FILES_DIR+'/*')
+    for f in files:
+        if f.endswith('cytoBandIdeo.txt'):
+            continue
+        os.remove(f)
+
+
+def delete(request):
+    tracks = Track.objects.filter(public=False)
+    if tracks:
+        editor = ManageGiveData()
+        for track in tracks:
+            editor.delete(track.group, track.track_name)
+            f = settings.FILES_DIR+'/' + track.file_name
+            os.remove(f)
+        Track.objects.filter(public=False).delete()
+        
+
+    return HttpResponse("<h1>DELETED!<h1>")
+
+
+def reset(request):
+    editor = ManageGiveData()
+    editor.reset()
+
+    Track.objects.all().delete()
+
+    files = glob.glob(settings.FILES_DIR+'/*')
+    for f in files:
+        if f.endswith('cytoBandIdeo.txt'):
+            continue
+        os.remove(f)
+
+    return HttpResponse("<h1>RESETED!<h1>")
