@@ -170,11 +170,17 @@ def reset(request):
     editor = ManageGiveData()
     editor.reset()
 
-    Track.objects.all().delete()
+    Track.objects.filter(public=False).delete()
 
     files = glob.glob(settings.FILES_DIR+'/*')
+    file_set = set(["cytoBandIdeo.txt", "genePred_symbol.txt", "radar.bw", "hg38.phastCons100way.bw"])
     for f in files:
-        if f.endswith('cytoBandIdeo.txt'):
+        flag = False
+        for do_not_delete in file_set:
+            if f.endswith(do_not_delete):
+                flag = True
+                break
+        if flag:
             continue
         os.remove(f)
 
