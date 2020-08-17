@@ -144,14 +144,6 @@ def addViz(request):
     return HttpResponse(status=204)
 
 
-def delete_files():
-    files = glob.glob(settings.FILES_DIR+'/*')
-    for f in files:
-        if f.endswith('cytoBandIdeo.txt'):
-            continue
-        os.remove(f)
-
-
 def delete(request):
     tracks = Track.objects.filter(public=False)
     if tracks:
@@ -172,7 +164,7 @@ def reset(request):
 
     Track.objects.filter(public=False).delete()
 
-    files = glob.glob(settings.FILES_DIR+'/*')
+    files = glob.glob(settings.FILES_DIR+'/*.*')
     file_set = set(["cytoBandIdeo.txt", "genePred_symbol.txt", "radar.bw", "hg38.phastCons100way.bw"])
     for f in files:
         flag = False
