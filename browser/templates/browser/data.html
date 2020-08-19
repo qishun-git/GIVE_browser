@@ -1,0 +1,41 @@
+{% extends "browser/base.html" %} {% block content %}
+<div class="data">
+  <h1>Data Description and Download</h1>
+  <div class="download-text">
+    <h2>
+      1. 1000 Genome SNPs in LD with maf=0.05 for 4 Populations, hg38
+    </h2>
+    <h3>Download:</h3>
+    <div class="data-download">
+      <p>.tar.gz</p>
+      <a href="#">AFR(2683.67MB)</a> / <a href="#">AMR(2700.01MB)</a> /
+      <a href="#">EAS(2169.11MB)</a> / <a href="#">EUR(2406.84MB)</a>
+    </div>
+    <h3>Description:</h3>
+    <p>
+      Directory containing 4 folders as 4 population(EUR for European, EAS for
+      East Asian, AFR for African, AMR for American), each folder containing
+      files for each chromosome. Each file contains precomputed R² values for
+      pairs of SNPs. A line is tab-delimited and formatted as: SNP1, SNP2, R²
+      value. The threshold of R² value is 0.05. Mentioned that the positions of
+      SNPs are 1-based.
+    </p>
+    <h2>2. GWAS Catalog</h2>
+    <h3>Download:</h3>
+    <div class="data-download">
+      <p>.csv&nbsp;&nbsp;&nbsp;</p>
+      <a href="{% url 'download' %}">GWAS variants(13.39MB)</a>
+    </div>
+    <h3>Description:</h3>
+    <p>
+      Need description of GWAS.csv here.
+    </p>
+  </div>
+</div>
+<div class="diagram">
+  <h1>Statistical Diagram</h1>
+</div>
+<div class="expression">
+  <h1>Expression</h1>
+</div>
+{% endblock content %}

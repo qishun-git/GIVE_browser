@@ -1,24 +1,15 @@
 {% extends "browser/base.html" %}
 {% block content %}
-<!-- 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">GIVE Browser</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group mr-2">
-                <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Upload</button>
-            </div>
-        </div>
-</div> -->
 
-<div id="main-content" class="right-column col-md-12" style="background: #FBFCFE"></div>
+<div class="viz">
+
+
     <div>
         <p class="text"><Strong>Instruction: </Strong>Please make sure you've made a query under Find LD SNPs tab.</p>
     </div>
 
     <div id="menu-bar" style="margin:15px 0;">
-        <a id="myBtn2" class="myButton" href="http://sc.gersteinlab.org:8047/find">Make A Query</a>
+        <a id="myBtn2" class="myButton" href="{% url 'browser-find' %}">Make A Query</a>
         <button id="myBtn" class="myButton">Add Data & View</button>
     </div>
 
@@ -97,61 +88,6 @@
         }
     </script>
 
-    <style>
-
-        /* 使Button和别的页面一致 */
-        
-        #myBtn,#myBtn2,#submit-btn{
-            cursor: pointer;
-            padding: 10px 30px;
-            background: #B7CFDC;
-            color: #FFFFFF;
-            border: none;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-
-        #submit-btn{
-            padding: 5px 10px;
-            margin-top:10px;
-        }
-
-        #submit-btn:hover{
-           color:black
-        }
-
-        #myBtn:hover{
-           color:black
-        }
-
-        #myBtn2:hover{
-           color:black
-        }
-        
-
-        .select-form{
-            margin:10px 0 0;
-        }
-
-        .form-group{
-            border-radius:10px;
-            padding:10px 0 10px 20px;
-        }
-
-        /* 去除每个选项前面的'点' */
-        
-        .form-group li{
-            list-style: none;
-        }
-
-
-        /* 修改loading的位置 */
-
-        #popup-loader{ 
-            margin-left:30%;
-        }
-    
-    </style>
 </div>
 {% endblock content %}
 

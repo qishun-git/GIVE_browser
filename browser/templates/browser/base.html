@@ -1,4 +1,5 @@
 {% load static %}
+{% load active_link_tags %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,23 +21,26 @@
                 <span data-text="E">E</span>
             </p>
         </div>
-        <ul id="nav">
-            <li class="lefft" style="background-color: #0064a4;border-right:none;"><a href="http://sc.gersteinlab.org:8047/home"><img src="/static/logo.png" style="padding-bottom:6px;height:23px;">&nbsp;Home</a></li>
-            <li class="lefft" style="background-color: #0064a4;border-right:none;"><a href="http://sc.gersteinlab.org:8047/data">Data</a></li>
-            <li class="lefft" style="background-color: #0064a4;border-right:none;"><a href="http://sc.gersteinlab.org:8047/find">Find LD SNPs</a></li>
-            <li class="noneleft" style="background-color:  #ffd200"><a href="http://sc.gersteinlab.org:8000/browser">Visualization</a></li>
-            <li class="lefft" style="background-color: #0064a4;border-right:none;"><a href="http://sc.gersteinlab.org:8047/contact">Contact</a></li>
+        <ul class="navbar-nav">
+            <li class="nav-item {% active_link 'browser-home' 'active' strict=True %}" ><a class="nav-link" href="{% url 'browser-home' %}"><img src="/static/logo.png" style="padding-bottom:6px;height:23px;">&nbsp;Home</a></li>
+            <li class="nav-item {% active_link 'browser-data' 'active' %}" ><a class="nav-link" href="{% url 'browser-data' %}">Data</a></li>
+            <li class="nav-item {% active_link 'browser-find' 'active' %}" ><a class="nav-link" href="{% url 'browser-find' %}">Find LD SNPs</a></li>
+            <li class="nav-item {% active_link 'browser-browser' 'active' %}" ><a class="nav-link" href="{% url 'browser-browser' %}">Visualization</a></li>
+            <li class="nav-item {% active_link 'browser-contact' 'active' %}" ><a class="nav-link" href="{% url 'browser-contact' %}">Contact</a></li>
         </ul>
-        <br/>
+        <div class="top-lines">
+            <hr style="height:1px;border:none;border-top:2px solid #0064a4;" />
+		    <hr style="height:1px;border:none;border-top:2px solid #ffd200;" />
+        </div>
+        
         <div id="content">
-			<hr style="height:1px;border:none;border-top:2px solid #0064a4;" />
-			<hr style="height:1px;border:none;border-top:2px solid #ffd200;" />
-
+			
                 {% block content %}{% endblock %}       
 
-            <br/>
-            <hr style="height:1px;border:none;border-top:2px solid #ffd200;" />
-			<hr style="height:1px;border:none;border-top:2px solid #0064a4;" />
+        </div>
+        <div class="bottom-lines">
+            <hr style="height:1px;border:none;border-top:2px solid #0064a4;" />
+		    <hr style="height:1px;border:none;border-top:2px solid #ffd200;" />
         </div>
     </div>
     <br/>
