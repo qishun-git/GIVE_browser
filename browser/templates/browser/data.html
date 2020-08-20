@@ -3,7 +3,7 @@
   <h1>Data Description and Download</h1>
   <div class="download-text">
     <h2>
-      1. 1000 Genome SNPs in LD with maf=0.05 for 4 Populations, hg38
+      &#9679; 1000 Genome SNPs in LD with maf=0.05 for 4 Populations, hg38
     </h2>
     <h3>Download:</h3>
     <div class="data-download">
@@ -22,7 +22,7 @@
       value. The threshold of R² value is 0.05. Mentioned that the positions of
       SNPs are 1-based.
     </p>
-    <h2>2. GWAS Catalog</h2>
+    <h2>&#9679; GWAS Catalog</h2>
     <h3>Download:</h3>
     <div class="data-download">
       <p>.csv&nbsp;&nbsp;&nbsp;</p>
@@ -34,10 +34,237 @@
     </p>
   </div>
 </div>
+
 <div class="diagram">
   <h1>Statistical Diagram</h1>
+  <h2>
+    &#9679; Pie Plots Showing the Genome Elements around RBP Binding Sites
+  </h2>
+  <div class="row">
+    <div class="column">
+      <img src="/static/data1.png" height="400px" />
+    </div>
+    <div class="column">
+      <img src="/static/data2.png" height="400px" />
+    </div>
+  </div>
+
+  <h2>
+    &#9679; Bar Plots Showing Length of RBP Binding Sites in K562 and HepG2
+  </h2>
+  <img class="center" src="/static/data3.png" />
+  <h2>
+    &#9679; Heatmap Showing RNA-Seq Data for RBP across Tissues
+  </h2>
+  <img class="center" src="/static/data4.png" />
 </div>
+
 <div class="expression">
   <h1>Expression</h1>
+  <div class="download-text">
+    <p>
+      Users can choose two mode in this secction: All RBP expression in one
+      Tissue/ One RBP expression in all Tissue
+    </p>
+    <div class="split-left">
+      <h2>
+        RNA-Seq data across tissue
+      </h2>
+      Tissue:
+      <select
+        name="tissuename"
+        id="tissuename"
+        style="font-size: 17px;"
+        onchange="tissue();"
+      >
+        <option value="adrenal gland">adrenal gland</option>
+        <option value="blood vessel,vasculature"
+          >blood vessel,vasculature</option
+        >
+        <option value="connective tissue,adipose tissue"
+          >connective tissue,adipose tissue</option
+        >
+        <option value="epithelium,breast">epithelium,breast</option>
+        <option value="epithelium,esophagus">epithelium,esophagus</option>
+        <option value="gonad,testis">gonad,testis</option>
+        <option value="heart">heart</option>
+        <option value="intestine,large intestine"
+          >intestine,large intestine</option
+        >
+        <option value="intestine,lymphoid tissue"
+          >intestine,lymphoid tissue</option
+        >
+        <option value="large intestine,intestine"
+          >large intestine,intestine</option
+        >
+        <option value="limb,musculature of body"
+          >limb,musculature of body</option
+        >
+        <option value="limb,nerve">limb,nerve</option>
+        <option value="limb,skin of body">limb,skin of body</option>
+        <option value="liver">liver</option>
+        <option value="lung">lung</option>
+        <option value="lymphoid tissue,intestine"
+          >lymphoid tissue,intestine</option
+        >
+        <option value="musculature of body,esophagus"
+          >musculature of body,esophagus</option
+        >
+        <option value="musculature of body,limb"
+          >musculature of body,limb</option
+        >
+        <option value="musculature of body,stomach"
+          >musculature of body,stomach</option
+        >
+        <option value="nerve,limb">nerve,limb</option>
+        <option value="ovary,gonad">ovary,gonad</option>
+        <option value="pancreas">pancreas</option>
+        <option value="prostate gland">prostate gland</option>
+        <option value="skin of body">skin of body</option>
+        <option value="spleen">spleen</option>
+        <option value="stomach">stomach</option>
+        <option value="testis,gonad">testis,gonad</option>
+        <option value="thyroid gland">thyroid gland</option>
+        <option value="uterus">uterus</option>
+        <option value="vagina">vagina</option>
+        <option value="vasculature,blood vessel"
+          >vasculature,blood vessel</option
+        >
+      </select>
+      <br />
+      <div
+        id="main"
+        style="padding: 20px 0px; width: 95%; height: 2700px;"
+      ></div>
+    </div>
+    <div class="split-right">
+      <h2>
+        RNA-Seq data across RBP
+      </h2>
+      RBP:
+      <select
+        name="rbpname"
+        id="rbpname"
+        style="font-size: 17px;"
+        onchange="rbp();"
+      >
+        <option value="AARS">AARS</option>
+        <option value="AGGF1">AGGF1</option>
+        <option value="AKAP8L">AKAP8L</option>
+        <option value="AUH">AUH</option>
+        <option value="BCCIP">BCCIP</option>
+        <option value="BUD13">BUD13</option>
+        <option value="CDC40">CDC40</option>
+        <option value="CPSF6">CPSF6</option>
+        <option value="CSTF2">CSTF2</option>
+        <option value="CSTF2T">CSTF2T</option>
+        <option value="DDX24">DDX24</option>
+        <option value="DDX3X">DDX3X</option>
+        <option value="DDX42">DDX42</option>
+        <option value="DDX55">DDX55</option>
+        <option value="DDX59">DDX59</option>
+        <option value="DDX6">DDX6</option>
+        <option value="DGCR8">DGCR8</option>
+        <option value="DHX30">DHX30</option>
+        <option value="DKC1">DKC1</option>
+        <option value="DROSHA">DROSHA</option>
+        <option value="EFTUD2">EFTUD2</option>
+        <option value="EIF3D">EIF3D</option>
+        <option value="EIF4G2">EIF4G2</option>
+        <option value="EWSR1">EWSR1</option>
+        <option value="FAM120A">FAM120A</option>
+        <option value="FASTKD2">FASTKD2</option>
+        <option value="FKBP4">FKBP4</option>
+        <option value="FMR1">FMR1</option>
+        <option value="FTO">FTO</option>
+        <option value="FUBP3">FUBP3</option>
+        <option value="FXR1">FXR1</option>
+        <option value="FXR2">FXR2</option>
+        <option value="GEMIN5">GEMIN5</option>
+        <option value="GNL3">GNL3</option>
+        <option value="GPKOW">GPKOW</option>
+        <option value="GRSF1">GRSF1</option>
+        <option value="GRWD1">GRWD1</option>
+        <option value="GTF2F1">GTF2F1</option>
+        <option value="HLTF">HLTF</option>
+        <option value="HNRNPA1">HNRNPA1</option>
+        <option value="HNRNPC">HNRNPC</option>
+        <option value="HNRNPK">HNRNPK</option>
+        <option value="HNRNPM">HNRNPM</option>
+        <option value="HNRNPU">HNRNPU</option>
+        <option value="HNRNPUL1">HNRNPUL1</option>
+        <option value="IGF2BP1">IGF2BP1</option>
+        <option value="IGF2BP2">IGF2BP2</option>
+        <option value="IGF2BP3">IGF2BP3</option>
+        <option value="ILF3">ILF3</option>
+        <option value="KHDRBS1">KHDRBS1</option>
+        <option value="KHSRP">KHSRP</option>
+        <option value="LARP4">LARP4</option>
+        <option value="LARP7">LARP7</option>
+        <option value="LIN28B">LIN28B</option>
+        <option value="LSM11">LSM11</option>
+        <option value="METAP2">METAP2</option>
+        <option value="MTPAP">MTPAP</option>
+        <option value="NCBP2">NCBP2</option>
+        <option value="NKRF">NKRF</option>
+        <option value="NOL12">NOL12</option>
+        <option value="NONO">NONO</option>
+        <option value="NPM1">NPM1</option>
+        <option value="NSUN2">NSUN2</option>
+        <option value="PCBP2">PCBP2</option>
+        <option value="PPIG">PPIG</option>
+        <option value="PPIL4">PPIL4</option>
+        <option value="PRPF8">PRPF8</option>
+        <option value="PTBP1">PTBP1</option>
+        <option value="PUM2">PUM2</option>
+        <option value="PUS1">PUS1</option>
+        <option value="QKI">QKI</option>
+        <option value="RBFOX2">RBFOX2</option>
+        <option value="RBM15">RBM15</option>
+        <option value="RBM22">RBM22</option>
+        <option value="RBM27">RBM27</option>
+        <option value="SAFB2">SAFB2</option>
+        <option value="SBDS">SBDS</option>
+        <option value="SERBP1">SERBP1</option>
+        <option value="SF3A3">SF3A3</option>
+        <option value="SF3B1">SF3B1</option>
+        <option value="SF3B4">SF3B4</option>
+        <option value="SFPQ">SFPQ</option>
+        <option value="SLBP">SLBP</option>
+        <option value="SLTM">SLTM</option>
+        <option value="SMNDC1">SMNDC1</option>
+        <option value="SND1">SND1</option>
+        <option value="SRSF1">SRSF1</option>
+        <option value="SRSF7">SRSF7</option>
+        <option value="SRSF9">SRSF9</option>
+        <option value="SUB1">SUB1</option>
+        <option value="SUGP2">SUGP2</option>
+        <option value="SUPV3L1">SUPV3L1</option>
+        <option value="TAF15">TAF15</option>
+        <option value="TARDBP">TARDBP</option>
+        <option value="TBRG4">TBRG4</option>
+        <option value="TIA1">TIA1</option>
+        <option value="TNRC6A">TNRC6A</option>
+        <option value="TRA2A">TRA2A</option>
+        <option value="TROVE2">TROVE2</option>
+        <option value="U2AF1">U2AF1</option>
+        <option value="U2AF2">U2AF2</option>
+        <option value="UCHL5">UCHL5</option>
+        <option value="UPF1">UPF1</option>
+        <option value="XPO5">XPO5</option>
+        <option value="XRCC6">XRCC6</option>
+        <option value="XRN2">XRN2</option>
+        <option value="YBX3">YBX3</option>
+        <option value="YWHAG">YWHAG</option>
+        <option value="ZNF622">ZNF622</option>
+        <option value="ZRANB2">ZRANB2</option>
+      </select>
+      <br />
+      <div
+        id="main2"
+        style="padding: 20px 0px; width: 95%; height: 2700px;"
+      ></div>
+    </div>
+  </div>
 </div>
 {% endblock content %}
