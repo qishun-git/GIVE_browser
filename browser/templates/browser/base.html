@@ -48,7 +48,10 @@
           <a class="nav-link" href="{% url 'browser-data' %}">Data</a>
         </li>
         <li class="nav-item {% active_link 'browser-find' 'active' %}">
-          <a class="nav-link" href="{% url 'browser-find' %}">Find LD SNPs</a>
+          <!-- <a class="nav-link" href="{% url 'browser-find' %}">Find LD SNPs</a> -->
+          <a class="nav-link" href="http://sc.gersteinlab.org:8047/find"
+            >Find LD SNPs</a
+          >
         </li>
         <li class="nav-item {% active_link 'browser-browser' 'active' %}">
           <a class="nav-link" href="{% url 'browser-browser' %}"
