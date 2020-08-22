@@ -1,4 +1,42 @@
-{% extends "browser/base.html" %}
-{% block content %}
-    <h1>Home Page</h1>
+{% extends "browser/base.html" %} {% block content %}
+<div class="home">
+  <div id="introduction" class="split-left">
+    <h1>Introduction</h1>
+    <div class="home-text">
+      Welcome to PARSE. <br />
+      PARSE is an academic website. It is an excellent tool with three
+      functional sections. Users can get informative message from several
+      aspects.
+    </div>
+
+    <h1>Functions</h1>
+    <div class="home-text">
+      <h2>1. Data</h2>
+      <p>
+        Data section is feasible for achieving an overall statistical impression
+        of the data used to generating this website. Users can dynamically
+        visualize the statistical features of different variants. It also offers
+        descriptions and download links of all data sets.
+      </p>
+      <h2>2. Find LD SNPs</h2>
+      <p>
+        Find LD SNPs section is created for searching linked SNPs based on user
+        specific SNPs or exsiting GWAS. Users can select linked SNPs by setting
+        R² and specific population.
+      </p>
+
+      <h2>3. Visualization</h2>
+      <p>
+        Visualization section provides interactive genome browser to view GWAS
+        and LD SNPs. Moreover, genes, RDDAR, PhastCons data are also available
+        in the visualization part.
+      </p>
+    </div>
+  </div>
+
+  <div class="split-right">
+    <img src="/static/front.jpg" width="100%" />
+  </div>
+</div>
+
 {% endblock content %}

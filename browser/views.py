@@ -1,17 +1,30 @@
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
-from django.urls import reverse
-from .forms import DataTrackForm
-from .runbash import ManageGiveData
+from django.http                        import HttpResponse, HttpResponseRedirect, FileResponse
+from django.shortcuts                   import get_object_or_404, render, redirect
+from django.urls                        import reverse
+from django.views.decorators.csrf       import csrf_exempt
+from django.conf                        import settings
+from .forms                             import DataTrackForm
+from .runbash                           import ManageGiveData
+from .models                            import Track, Coordinates
+
 import json
 import re
-from .models import Track, Coordinates
-from django.views.decorators.csrf import csrf_exempt
+import os
+import glob
+
 
 
 def home(request):
     return render(request,'browser/home.html',{'title':'Home'})
 
+def data(request):
+    return render(request,'browser/data.html',{'title':'Data'})
+
+def find(request):
+    return render(request,'browser/find.html',{'title':'Find LD SNPs'})
+
+def contact(request):
+    return render(request,'browser/contact.html',{'title':'Contact'})
 
 def browser(request):
     def getIP(request):
@@ -137,3 +150,61 @@ def addViz(request):
                     new_cor = Coordinates(chromosome=chromosome,start=start,end=end,track=new_track)
                     new_cor.save()
     return HttpResponse(status=204)
+
+
+def delete(request):
+    tracks = Track.objects.filter(public=False)
+    if tracks:
+        editor = ManageGiveData()
+        for track in tracks:
+            editor.delete(track.group, track.track_name)
+            f = settings.FILES_DIR+'/' + track.file_name
+            os.remove(f)
+        Track.objects.filter(public=False).delete()
+        
+
+    return HttpResponse("<h1>DELETED!<h1>")
+
+
+def reset(request):
+    editor = ManageGiveData()
+    editor.reset()
+
+    Track.objects.filter(public=False).delete()
+
+    files = glob.glob(settings.FILES_DIR+'/*.*')
+    file_set = set(["cytoBandIdeo.txt", "genePred_symbol.txt", "radar.bw", "hg38.phastCons100way.bw"])
+    for f in files:
+        flag = False
+        for do_not_delete in file_set:
+            if f.endswith(do_not_delete):
+                flag = True
+                break
+        if flag:
+            continue
+        os.remove(f)
+
+    return HttpResponse("<h1>RESET!<h1>")
+
+
+def file_down(request,id):
+    files = {
+        '0':'GWAS.csv',
+        '1':'AFRpopLDdata.tar.gz',
+        '2':'AMRpopLDdata.tar.gz',
+        '3':'EASpopLDdata.tar.gz',
+        '4':'EURpopLDdata.tar.gz'
+        }
+    name = files.get(id, '')
+    file_path = 'static/' + name
+    content = 'attachment;filename="' + name + '"'
+    try:
+        file = open(file_path,'rb')
+        response =FileResponse(file)
+        response['Content-Disposition']=content
+        return response
+    except:
+        return redirect('/data')
+
+
+
