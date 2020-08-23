@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 class Track(models.Model):
@@ -12,6 +13,7 @@ class Track(models.Model):
     file_name = models.CharField(max_length=100)
     creater = models.GenericIPAddressField(default="0.0.0.0")
     public = models.BooleanField(default=True)
+    modified_time = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.track_name
