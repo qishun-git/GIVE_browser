@@ -1,6 +1,10 @@
 asgiref==3.2.10
 Django==3.1
+django-active-link==0.1.6
+django-background-tasks==1.2.5
+django-compat==1.0.15
 django-cors-headers==3.4.0
 django-ipware==3.0.1
 pytz==2020.1
+six==1.15.0
 sqlparse==0.3.1

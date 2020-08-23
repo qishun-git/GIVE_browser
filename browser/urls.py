@@ -12,4 +12,5 @@ urlpatterns = [
     re_path('download/(?P<id>\d+)', views.file_down,name = "download"),
     path('find/', views.find, name='browser-find'),
     path('contact/', views.contact, name='browser-contact'),
+    path('t/', views.t, name='test'),
 ]
