@@ -1,17 +1,23 @@
-from django.http                        import HttpResponse, HttpResponseRedirect, FileResponse
+from django.http                        import HttpResponse, HttpResponseRedirect, FileResponse, JsonResponse, HttpResponseNotFound
 from django.shortcuts                   import get_object_or_404, render, redirect
 from django.urls                        import reverse
 from django.views.decorators.csrf       import csrf_exempt
 from django.conf                        import settings
+from django.utils                       import timezone
 from .forms                             import DataTrackForm
 from .runbash                           import ManageGiveData
 from .models                            import Track, Coordinates
+from .tasks                             import delete_task
+
 
 import json
 import re
 import os
 import glob
+import datetime
 
+# 1 day = 60 * 60 * 12 = 43200
+REPEAT_DELETE_INTERVAL = 43200
 
 
 def home(request):
@@ -87,6 +93,8 @@ def panel(request):
         for i in range(len(track_ids)):
             t_id = track_ids[i]
             t = data.get(pk=t_id)
+            t.modified_time = datetime.time.now()
+            t.save()
             track = '\"'+t.track_name+'\",' if i < len(track_ids)-1 else '\"'+t.track_name+'\"'
             tracks.append(track)
             # get GWAS coordinates
@@ -138,7 +146,8 @@ def addViz(request):
                 label=label,
                 file_name=file_name,
                 creater=creater,
-                public=public
+                public=public,
+                modified_time=timezone.now()
                 )
             new_track.save()
             cor_dict = track.get('coordinates', {})
@@ -207,4 +216,13 @@ def file_down(request,id):
         return redirect('/data')
 
 
+@csrf_exempt
+def t(request):
+    if request.method == 'POST':
+        task = request.POST["task"]
+        if task == "delete":
+            delete_task(repeat=REPEAT_DELETE_INTERVAL)
+            return HttpResponse("<h1>TASK STARTED<h1>")
+
+    return HttpResponseNotFound("Page not Found")
 
